@@ -12,14 +12,14 @@ const execute = async (interaction: ChatInputCommandInteraction) => {
 
     if (botState.isWatching()) {
         await interaction.reply({
-            content: `⚠️ Atenção: As mensagens do canal <#${channelId}> já estão sendo monitoradas.`,
+            content: `⚠️ Atenção: As mensagens do canal <#${botState.channelId()}> já estão sendo monitoradas.`,
             flags: [MessageFlags.Ephemeral],
         });
     } else {
         botState.startWatching();
         botState.setChannelId(channelId);
         await interaction.reply(
-            `✅ Inicializado: As mensagens do canal <#${channelId}> agora estão sendo monitoradas.`
+            `✅ Inicializado: As mensagens do canal <#${botState.channelId()}> agora estão sendo monitoradas.`
         );
     }
 };

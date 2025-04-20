@@ -20,6 +20,12 @@ const environmentSchema = z.object({
     SERVER_ID: z.string({
         message: "Set the SERVER_ID in the .env file",
     }),
+    SOCKET_PORT: z
+        .string({
+            message: "Set the SOCKET_PORT in the .env file",
+        })
+        .optional()
+        .default("8000"),
 });
 
 const environment = environmentSchema.parse({
@@ -28,6 +34,7 @@ const environment = environmentSchema.parse({
     SECRET_KEY: process.env.SECRET_KEY,
     SECRET_TOKEN: process.env.SECRET_TOKEN,
     SERVER_ID: process.env.SERVER_ID,
+    SOCKET_PORT: process.env.SOCKET_PORT,
 });
 
 export { environment };

@@ -12,13 +12,13 @@ const execute = async (interaction: ChatInputCommandInteraction) => {
 
     if (!botState.isWatching()) {
         await interaction.reply({
-            content: `⚠️ Atenção: As mensagens do canal <#${channelId}> não estão sendo monitoradas.`,
+            content: `⚠️ Atenção: As mensagens do canal <#${botState.channelId()}> não estão sendo monitoradas.`,
             flags: [MessageFlags.Ephemeral],
         });
     } else {
         botState.stopWatching();
         await interaction.reply(
-            `🏁 Terminado: As mensagens do canal <#${channelId}> não estão mais sendo monitoradas.`
+            `🏁 Terminado: As mensagens do canal <#${botState.channelId()}> não estão mais sendo monitoradas.`
         );
     }
 };
