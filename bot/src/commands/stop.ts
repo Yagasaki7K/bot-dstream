@@ -1,6 +1,7 @@
 import type { Command } from "../types";
 
 import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
+
 import { botState } from "../states/bot-state";
 
 const command = new SlashCommandBuilder()
@@ -8,8 +9,6 @@ const command = new SlashCommandBuilder()
     .setDescription("Para de assistir as mensagens.");
 
 const execute = async (interaction: ChatInputCommandInteraction) => {
-    const channelId = interaction.channelId;
-
     if (!botState.isWatching()) {
         await interaction.reply({
             content: `⚠️ Atenção: As mensagens do canal <#${botState.channelId()}> não estão sendo monitoradas.`,

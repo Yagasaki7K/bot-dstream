@@ -1,6 +1,7 @@
 import type { Command } from "../types";
 
 import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
+
 import { botState } from "../states/bot-state";
 
 const command = new SlashCommandBuilder()

@@ -1,4 +1,5 @@
 import { Server } from "socket.io";
+import { MAX_LIST_MESSAGES_LENGTH } from "../config/max-list-messages-length";
 
 type Message = {
     userId: string;
@@ -23,6 +24,8 @@ class DiscordSocketService implements SocketService {
     }
 
     pushMessages(message: Message) {
+        if (this.messages.length === MAX_LIST_MESSAGES_LENGTH) this.messages.shift();
+
         this.messages.push(message);
     }
 
