@@ -23,7 +23,11 @@ const initializeClient = async (client: Client, commands: Command[], ioServer: S
         await commandsHandler(client, commands);
 
         client.on(Events.MessageCreate, async (message) => {
-            if (botState.isWatching() && message.channelId === botState.channelId()) {
+            if (
+                botState.isWatching() &&
+                message.channelId === botState.channelId() &&
+                !message.author.bot
+            ) {
                 ioServer.pushMessages({
                     messageContent: message.content,
                     userId: message.author.id,
