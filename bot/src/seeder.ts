@@ -2,7 +2,7 @@ import type { Command } from "./types";
 
 import { REST, Routes } from "discord.js";
 
-import { environment } from "./environment";
+import { environment } from "./config/environment";
 
 const { APPLICATION_ID, SERVER_ID } = environment;
 

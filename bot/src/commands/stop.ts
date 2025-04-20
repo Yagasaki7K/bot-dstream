@@ -1,18 +1,25 @@
 import type { Command } from "../types";
 
-import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
-import { botState } from "../states/watch-messages-state";
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
+import { botState } from "../states/bot-state";
 
 const command = new SlashCommandBuilder()
     .setName("stop")
     .setDescription("Para de assistir as mensagens.");
 
 const execute = async (interaction: ChatInputCommandInteraction) => {
-    if (!botState.watchingMessages) {
-        interaction.reply("Aviso: O sistema já está parado!");
+    const channelId = interaction.channelId;
+
+    if (!botState.isWatching()) {
+        await interaction.reply({
+            content: `⚠️ Atenção: As mensagens do canal <#${channelId}> não estão sendo monitoradas.`,
+            flags: [MessageFlags.Ephemeral],
+        });
     } else {
-        botState.watchingMessages = false;
-        interaction.reply("Terminado: As mensagens agora não estão mais sendo assistidas");
+        botState.stopWatching();
+        await interaction.reply(
+            `🏁 Terminado: As mensagens do canal <#${channelId}> não estão mais sendo monitoradas.`
+        );
     }
 };
 

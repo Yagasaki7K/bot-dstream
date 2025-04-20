@@ -1,6 +1,6 @@
-import { Client, GatewayIntentBits, REST, SlashCommandBuilder } from "discord.js";
+import { Client, GatewayIntentBits, REST } from "discord.js";
 
-import { environment } from "./environment";
+import { environment } from "./config/environment";
 import { seedCommands } from "./seeder";
 import { initializeClient } from "./client";
 

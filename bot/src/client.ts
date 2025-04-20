@@ -2,7 +2,7 @@ import type { Command } from "./types";
 
 import { Events, type Client } from "discord.js";
 
-import { environment } from "./environment";
+import { environment } from "./config/environment";
 import { commandsHandler } from "./handlers/command-handler";
 
 const { SECRET_TOKEN } = environment;
