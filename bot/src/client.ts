@@ -1,22 +1,23 @@
-import { Events, type Client, type SlashCommandBuilder } from "discord.js";
-import { environment } from "./environment";
+import type { Command } from "./types";
 
-type MessageEventHandler = {
-    content: string;
-    action: () => void;
-};
+import { Events, type Client } from "discord.js";
+
+import { environment } from "./environment";
+import { commandsHandler } from "./handlers/command-handler";
 
 const { SECRET_TOKEN } = environment;
 
-const initializeClient = async (client: Client, commands: SlashCommandBuilder[]) => {
+/*
+ * Manage Discord events
+ */
+
+const initializeClient = async (client: Client, commands: Command[]) => {
     try {
         client.on(Events.ClientReady, (client) => {
             console.log(`Discord client is connected as ${client.user.tag}`);
         });
 
-        client.on(Events.InteractionCreate, async (interaction) => {
-            console.log(`Interaction created`);
-        });
+        await commandsHandler(client, commands);
 
         client.on(Events.MessageCreate, async (message) => {
             console.log(`Message created`);

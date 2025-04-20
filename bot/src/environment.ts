@@ -1,5 +1,9 @@
 import * as z from "zod";
 
+/*
+ * Add your environment variables schema here
+ */
+
 const environmentSchema = z.object({
     PUBLIC_KEY: z.string({
         message: "Set the PUBLIC_KEY in the .env file",
