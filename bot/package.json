@@ -2,6 +2,7 @@
     "name": "discord",
     "module": "main.ts",
     "type": "module",
+    "version": "0.1.0",
     "scripts": {
         "start": "bun main.ts",
         "dev": "bun --watch main.ts"
