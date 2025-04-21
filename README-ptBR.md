@@ -2,6 +2,8 @@
 
 Um bot leve para Discord que funciona como um widget de chat para OBS, exibindo mensagens na sua tela de transmissão com animações elegantes.
 
+![image](assets/demo.gif)
+
 ## Recursos
 - **Comandos simples**: `/start` para começar a monitorar, `/stop` para pausar
 - **Exibição de chat elegante**: Animações limpas e aparência personalizável
