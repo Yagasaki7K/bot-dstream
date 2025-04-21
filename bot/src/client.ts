@@ -3,10 +3,11 @@ import type { Command } from "./types";
 import { Events, type Client } from "discord.js";
 
 import { environment } from "./config/environment";
+
 import { commandsHandler } from "./handlers/command-handler";
+import { messagesHandler } from "./handlers/messages-handler";
 
 import type { SocketService } from "./sockets/discord-socket-service";
-import { botState } from "./states/bot-state";
 
 const { SECRET_TOKEN } = environment;
 
@@ -21,23 +22,7 @@ const initializeClient = async (client: Client, commands: Command[], ioServer: S
         });
 
         await commandsHandler(client, commands);
-
-        client.on(Events.MessageCreate, async (message) => {
-            if (
-                botState.isWatching() &&
-                message.channelId === botState.channelId() &&
-                !message.author.bot
-            ) {
-                ioServer.pushMessages({
-                    messageContent: message.content,
-                    userId: message.author.id,
-                    userAvatar: message.author.avatarURL() || "",
-                    userDisplayName: message.author.username,
-                });
-
-                ioServer.sendMessages();
-            }
-        });
+        await messagesHandler(client, ioServer);
 
         await client.login(SECRET_TOKEN);
     } catch (error) {
