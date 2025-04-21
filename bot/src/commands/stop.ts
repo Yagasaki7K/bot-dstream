@@ -1,14 +1,14 @@
+import type { BotState } from "../states/bot-state";
+
 import type { Command } from "../types";
 
 import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
-
-import { botState } from "../states/bot-state";
 
 const command = new SlashCommandBuilder()
     .setName("stop")
     .setDescription("Para de assistir as mensagens.");
 
-const execute = async (interaction: ChatInputCommandInteraction) => {
+const execute = async (interaction: ChatInputCommandInteraction, botState: BotState) => {
     if (!botState.isWatching()) {
         await interaction.reply({
             content: `⚠️ Atenção: As mensagens já não estão sendo monitoradas.`,

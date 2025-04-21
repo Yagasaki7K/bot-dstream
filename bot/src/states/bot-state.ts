@@ -1,6 +1,13 @@
+import type { SocketService } from "../sockets/discord-socket-service";
+
 class BotState {
     private _isWatching = false;
     private _channelId: null | string = null;
+    private _ioServer: SocketService;
+
+    constructor(ioServer: SocketService) {
+        this._ioServer = ioServer;
+    }
 
     isWatching() {
         return this._isWatching;
@@ -12,6 +19,7 @@ class BotState {
 
     stopWatching() {
         this._isWatching = false;
+        this._ioServer.clearMessages();
     }
 
     channelId() {
@@ -23,4 +31,4 @@ class BotState {
     }
 }
 
-export const botState = new BotState();
+export { BotState };

@@ -12,6 +12,7 @@ import { ioServer } from "./sockets/socket-server";
 
 import type { Command } from "./types";
 import { DiscordSocketService } from "./sockets/discord-socket-service";
+import { BotState } from "./states/bot-state";
 
 const { SECRET_TOKEN } = environment;
 
@@ -20,6 +21,8 @@ const start = async () => {
      * Initialize dependencies
      */
     const discordSocketService = new DiscordSocketService(ioServer);
+
+    const botState = new BotState(discordSocketService);
 
     const rest = new REST({ version: "10" }).setToken(SECRET_TOKEN);
 
@@ -37,7 +40,7 @@ const start = async () => {
      *   Start services
      */
     await seedCommands(rest, commands);
-    await initializeClient(client, commands, discordSocketService);
+    await initializeClient(client, commands, discordSocketService, botState);
 };
 
 export { start };

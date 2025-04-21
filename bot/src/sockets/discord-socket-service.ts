@@ -11,6 +11,7 @@ type Message = {
 export interface SocketService {
     pushMessages: (message: Message) => void;
     sendMessages: () => void;
+    clearMessages: () => void;
 }
 
 class DiscordSocketService implements SocketService {
@@ -31,6 +32,10 @@ class DiscordSocketService implements SocketService {
 
     sendMessages() {
         this.io.emit("message", this.messages);
+    }
+
+    clearMessages() {
+        this.messages = [];
     }
 
     private eventsMapper() {

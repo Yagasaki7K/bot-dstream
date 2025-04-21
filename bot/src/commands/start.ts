@@ -1,14 +1,14 @@
+import type { BotState } from "../states/bot-state";
+
 import type { Command } from "../types";
 
 import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
-
-import { botState } from "../states/bot-state";
 
 const command = new SlashCommandBuilder()
     .setName("start")
     .setDescription("Começa a assistir as mensagens.");
 
-const execute = async (interaction: ChatInputCommandInteraction) => {
+const execute = async (interaction: ChatInputCommandInteraction, botState: BotState) => {
     const channelId = interaction.channelId;
 
     if (botState.isWatching()) {
