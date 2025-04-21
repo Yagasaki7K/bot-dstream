@@ -14,6 +14,10 @@ const { VITE_SOCKET_PORT } = environment;
 
 const socketUrl = `http://localhost:${VITE_SOCKET_PORT}`;
 
+const sanitizeHtml = (html: string) => {
+    return { __html: html };
+};
+
 const ChatApp = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [connectionStatus, setConnectionStatus] = useState<
@@ -119,7 +123,10 @@ const ChatApp = () => {
                                         {msg.userDisplayName}
                                     </span>
                                 </div>
-                                <div style={styles.messageContent}>{msg.messageContent}</div>
+                                <div
+                                    style={styles.messageContent}
+                                    dangerouslySetInnerHTML={sanitizeHtml(msg.messageContent)}
+                                />
                             </motion.div>
                         ))}
                     </AnimatePresence>

@@ -11,7 +11,7 @@ const command = new SlashCommandBuilder()
 const execute = async (interaction: ChatInputCommandInteraction) => {
     if (!botState.isWatching()) {
         await interaction.reply({
-            content: `⚠️ Atenção: As mensagens do canal <#${botState.channelId()}> não estão sendo monitoradas.`,
+            content: `⚠️ Atenção: As mensagens já não estão sendo monitoradas.`,
             flags: [MessageFlags.Ephemeral],
         });
     } else {

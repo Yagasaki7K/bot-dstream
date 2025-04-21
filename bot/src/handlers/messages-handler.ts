@@ -2,11 +2,9 @@ import { Events, type Client } from "discord.js";
 
 import { botState } from "../states/bot-state";
 
-import type { SocketService } from "../sockets/discord-socket-service";
+import { parseCustomMessage } from "../helpers/parse-custom-message";
 
-/*
- * Checks and manage received Discord messages
- */
+import type { SocketService } from "../sockets/discord-socket-service";
 
 const messagesHandler = async (client: Client, ioServer: SocketService) => {
     client.on(Events.MessageCreate, async (message) => {
@@ -15,8 +13,10 @@ const messagesHandler = async (client: Client, ioServer: SocketService) => {
             botState.channelId() === message.channelId &&
             !message.author.bot
         ) {
+            let htmlMessageContent = parseCustomMessage(message.content);
+
             ioServer.pushMessages({
-                messageContent: message.content,
+                messageContent: htmlMessageContent,
                 userId: message.author.id,
                 userAvatar: message.author.avatarURL() || "",
                 userDisplayName: message.author.username,
